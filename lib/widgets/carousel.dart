@@ -81,10 +81,11 @@ class _CarouselState extends State<Carousel> {
                   (i) => Flexible(
                     flex: 1,
                     child: Container(
-                      height: 10,
+                      height: 8,
                       margin: const EdgeInsets.symmetric(horizontal: 2),
                       decoration: BoxDecoration(
                         color: _index == i.key ? Colors.white : Colors.white24,
+                        border: Border.all(color: Colors.black, width: double.minPositive),
                         borderRadius: const BorderRadius.all(
                           Radius.circular(10),
                         ),
