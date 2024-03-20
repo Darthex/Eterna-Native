@@ -52,22 +52,20 @@ class _StalkDetailsState extends ConsumerState<StalkDetails> {
         title: Text(item['display_name']),
       ),
       body: ListView(
-        // child: Column(
-          children: [
-            SizedBox(
-              width: double.infinity,
-              height: 500,
-              child: Hero(
-                tag: widget.ikey,
-                child: Carousel(
-                    item['imageList'], localIndex, localOnSet, localOnUnset),
-              ),
+        children: [
+          SizedBox(
+            width: double.infinity,
+            height: 500,
+            child: Hero(
+              tag: widget.ikey,
+              child: Carousel(
+                  item['imageList'], localIndex, localOnSet, localOnUnset),
             ),
-            const Center(
-              child: Text('Details coming soon'),
-            ),
-          ],
-        // ),
+          ),
+          const Center(
+            child: Text('Details coming soon'),
+          ),
+        ],
       ),
     );
   }
