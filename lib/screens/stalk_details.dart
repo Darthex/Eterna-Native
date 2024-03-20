@@ -1,4 +1,5 @@
 import 'package:eterna_native/widgets/carousel.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../providers/data_provider.dart';
@@ -53,17 +54,43 @@ class _StalkDetailsState extends ConsumerState<StalkDetails> {
       ),
       body: ListView(
         children: [
-          SizedBox(
+          Container(
             width: double.infinity,
             height: 500,
+            margin: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+            ),
+            clipBehavior: Clip.hardEdge,
             child: Hero(
               tag: widget.ikey,
               child: Carousel(
-                  item['imageList'], localIndex, localOnSet, localOnUnset),
+                item['imageList'],
+                localIndex,
+                localOnSet,
+                localOnUnset,
+              ),
             ),
           ),
-          const Center(
-            child: Text('Details coming soon'),
+          Padding(
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              children: [
+                 Row(
+                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(item['full_name']),
+                      Text(item['gender']),
+                    ],
+                ),
+                Divider(
+                  thickness: 5,
+                  height: 20,
+                  color: Theme.of(context).colorScheme.primaryContainer,
+                ),
+                Text(item['bio']),
+              ],
+            ),
           ),
         ],
       ),
