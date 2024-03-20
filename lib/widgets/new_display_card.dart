@@ -3,11 +3,12 @@ import 'package:eterna_native/widgets/stalk_item.dart';
 import 'package:flutter/material.dart';
 
 class NewDisplayCard extends StatefulWidget {
-  const NewDisplayCard(this.api, this.snapshot, this.ikey, {super.key});
+  const NewDisplayCard(this.api, this.snapshot, this.ikey, this.onClick, {super.key});
 
   final String api;
   final AsyncSnapshot snapshot;
   final int ikey;
+  final void Function() onClick;
 
   @override
   State<NewDisplayCard> createState() => _DisplayCardState();
@@ -18,12 +19,13 @@ class _DisplayCardState extends State<NewDisplayCard> {
     ScaffoldMessenger.of(context).clearSnackBars();
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
-        duration: Durations.long1,
+        duration: Durations.extralong3,
         elevation: 6,
         behavior: SnackBarBehavior.floating,
-        content: Text('Work in progress, use swipe for now!'),
+        content: Text('No Animations yet'),
       ),
     );
+    widget.onClick();
   }
 
   @override
