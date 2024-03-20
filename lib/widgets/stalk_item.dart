@@ -1,20 +1,52 @@
-import 'dart:math';
 import 'package:eterna_native/providers/data_provider.dart';
+import 'package:eterna_native/screens/stalk_details.dart';
 import 'package:eterna_native/widgets/carousel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class StalkItem extends ConsumerWidget {
+class StalkItem extends ConsumerStatefulWidget {
   const StalkItem(this.snapshot, this.ikey, {super.key});
 
   final AsyncSnapshot snapshot;
   final int ikey;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<ConsumerStatefulWidget> createState() {
+    return _StalkItemState();
+  }
+}
+
+class _StalkItemState extends ConsumerState<StalkItem> {
+  int index = 0;
+
+  void _setIndex() {
+    setState(() {
+      index += 1;
+    });
+  }
+
+  void _unsetIndex() {
+    setState(() {
+      index -= 1;
+    });
+  }
+
+  void _getDetails() {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (ctx) =>
+            StalkDetails(widget.ikey, index, _setIndex, _unsetIndex),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final data = ref.watch(dataProvider);
-    final isLoading = snapshot.connectionState == ConnectionState.waiting && data.isEmpty;
-    final item = data[ikey];
+    final isLoading =
+        widget.snapshot.connectionState == ConnectionState.waiting &&
+            data.isEmpty;
+    final item = data[widget.ikey];
 
     return Stack(
       children: [
@@ -26,7 +58,11 @@ class StalkItem extends ConsumerWidget {
           ),
           child: isLoading
               ? const Center(child: CircularProgressIndicator())
-              : Carousel(item['imageList']),
+              : Hero(
+                  tag: widget.ikey,
+                  child: Carousel(
+                      item['imageList'], index, _setIndex, _unsetIndex),
+                ),
         ),
         Positioned(
           bottom: 0,
@@ -46,7 +82,7 @@ class StalkItem extends ConsumerWidget {
               horizontal: 20,
             ),
             child: Row(
-              crossAxisAlignment: CrossAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 !isLoading
                     ? Text(
@@ -61,6 +97,11 @@ class StalkItem extends ConsumerWidget {
                         style: Theme.of(context).textTheme.bodyLarge,
                       )
                     : const Text(''),
+                const Spacer(),
+                IconButton(
+                    onPressed: _getDetails,
+                    icon: const Icon(Icons.info_outline),
+                )
               ],
             ),
           ),

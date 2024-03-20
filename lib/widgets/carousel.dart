@@ -1,30 +1,12 @@
 import 'package:flutter/material.dart';
 
-class Carousel extends StatefulWidget {
-  const Carousel(this.images, {super.key});
+class Carousel extends StatelessWidget {
+  const Carousel(this.images, this.index, this.onSet, this.onUnset, {super.key});
 
   final List images;
-
-  @override
-  State<StatefulWidget> createState() {
-    return _CarouselState();
-  }
-}
-
-class _CarouselState extends State<Carousel> {
-  var _index = 0;
-
-  void _setIndex() {
-    setState(() {
-      _index += 1;
-    });
-  }
-
-  void _unsetIndex() {
-    setState(() {
-      _index -= 1;
-    });
-  }
+  final int index;
+  final void Function() onSet;
+  final void Function() onUnset;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +14,7 @@ class _CarouselState extends State<Carousel> {
       fit: StackFit.expand,
       children: [
         Image.network(
-            widget.images[_index],
+            images[index],
             // snapshot.data['images'],
             fit: BoxFit.cover,
             loadingBuilder: (BuildContext context, Widget child,
@@ -57,13 +39,13 @@ class _CarouselState extends State<Carousel> {
               Flexible(
                 flex: 1,
                 child: GestureDetector(
-                  onTap: _index < 1 ? null : _unsetIndex,
+                  onTap: index < 1 ? null : onUnset,
                 ),
               ),
               Flexible(
                 flex: 1,
                 child: GestureDetector(
-                  onTap: _index < widget.images.length - 1 ? _setIndex : null,
+                  onTap: index < images.length - 1 ? onSet : null,
                 ),
               ),
             ],
@@ -74,7 +56,7 @@ class _CarouselState extends State<Carousel> {
           right: 10,
           top: 10,
           child: Row(
-            children: widget.images
+            children: images
                 .asMap()
                 .entries
                 .map(
@@ -84,7 +66,7 @@ class _CarouselState extends State<Carousel> {
                       height: 8,
                       margin: const EdgeInsets.symmetric(horizontal: 2),
                       decoration: BoxDecoration(
-                        color: _index == i.key ? Colors.white : Colors.white24,
+                        color: index == i.key ? Colors.white : Colors.white24,
                         border: Border.all(color: Colors.black, width: double.minPositive),
                         borderRadius: const BorderRadius.all(
                           Radius.circular(10),
