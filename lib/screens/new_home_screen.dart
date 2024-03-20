@@ -31,7 +31,7 @@ class _NewHomeScreenState extends ConsumerState<NewHomeScreen> {
 
   _stalk() async {
     final api = ref.read(apiProvider);
-    final url = Uri.parse('$api/stalk');
+    final url = Uri.parse('https://learn-sas-metabolism-modules.trycloudflare.com/stalk');
     final response = await http.get(url);
     final data = json.decode(response.body);
     ref.read(dataProvider.notifier).appendList(data);

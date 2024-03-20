@@ -40,21 +40,42 @@ class _TabsState extends State<Tabs> {
         showSelectedLabels: false,
         showUnselectedLabels: false,
         currentIndex: _selectedPageIndex,
-        items: const [
+        items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home_outlined),
+            icon: const Icon(
+              Icons.home,
+              size: 20,
+            ),
             label: 'Home',
-            activeIcon: Icon(Icons.home),
+            activeIcon: Icon(
+              Icons.home,
+              color: Theme.of(context).colorScheme.primary,
+              size: 20,
+            ),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.chat_bubble_outline),
+            icon: const Icon(
+              Icons.chat_bubble_rounded,
+              size: 20,
+            ),
             label: 'Chat',
-            activeIcon: Icon(Icons.chat_bubble),
+            activeIcon: Icon(
+              Icons.chat_bubble_rounded,
+              color: Theme.of(context).colorScheme.primary,
+              size: 20,
+            ),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person_outline),
+            icon: const Icon(
+              Icons.person,
+              size: 20,
+            ),
             label: 'Profile',
-            activeIcon: Icon(Icons.person),
+            activeIcon: Icon(
+              Icons.person,
+              color: Theme.of(context).colorScheme.primary,
+              size: 20,
+            ),
           ),
         ],
       ),
