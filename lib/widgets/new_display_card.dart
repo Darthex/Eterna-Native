@@ -14,9 +14,15 @@ class NewDisplayCard extends StatefulWidget {
 }
 
 class _DisplayCardState extends State<NewDisplayCard> {
-
   void _decide() {
-
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        duration: Durations.short1,
+        elevation: 6,
+        behavior: SnackBarBehavior.floating,
+        content: Text('Work in progress, use swipe for now!'),
+      ),
+    );
   }
 
   @override
