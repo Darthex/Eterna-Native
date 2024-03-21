@@ -22,7 +22,7 @@ class _NewHomeScreenState extends ConsumerState<NewHomeScreen> {
   void initState() {
     super.initState();
     final data = ref.read(dataProvider);
-    _stalkProfileFuture = data.isNotEmpty ? _stalk() : Future.value(data);
+    _stalkProfileFuture = data.isEmpty ? _stalk() : Future.value(data);
   }
 
   Future<void> _stalk() async {
