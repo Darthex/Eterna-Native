@@ -3,15 +3,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../providers/data_provider.dart';
 
 class DecisionButtons extends ConsumerWidget {
-  const DecisionButtons(this.onDecide, this.snapshot, {super.key});
+  const DecisionButtons(this.onDecide, {super.key});
 
   final void Function() onDecide;
-  final AsyncSnapshot snapshot;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final data = ref.watch(dataProvider);
-    final isLoading = snapshot.connectionState == ConnectionState.waiting && data.isEmpty;
+    final isLoading = data.isEmpty;
 
     return Row(
       mainAxisSize: MainAxisSize.max,

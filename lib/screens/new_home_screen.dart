@@ -87,7 +87,7 @@ class _NewHomeScreenState extends ConsumerState<NewHomeScreen> {
               child: SizedBox(
                 height: double.infinity,
                 width: double.infinity,
-                child: NewDisplayCard(api, snapshot, i.key, _swiped),
+                child: NewDisplayCard(api, i.key, _swiped),
               ),
             ),
           );

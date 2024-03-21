@@ -5,9 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class StalkItem extends ConsumerStatefulWidget {
-  const StalkItem(this.snapshot, this.ikey, {super.key});
+  const StalkItem(this.ikey, {super.key});
 
-  final AsyncSnapshot snapshot;
   final int ikey;
 
   @override
@@ -43,9 +42,6 @@ class _StalkItemState extends ConsumerState<StalkItem> {
   @override
   Widget build(BuildContext context) {
     final data = ref.watch(dataProvider);
-    final isLoading =
-        widget.snapshot.connectionState == ConnectionState.waiting &&
-            data.isEmpty;
     final item = data[widget.ikey];
 
     return Stack(
@@ -56,13 +52,10 @@ class _StalkItemState extends ConsumerState<StalkItem> {
           decoration: const BoxDecoration(
             color: Colors.black,
           ),
-          child: isLoading
-              ? const Center(child: CircularProgressIndicator())
-              : Hero(
-                  tag: widget.ikey,
-                  child: Carousel(
-                      item['imageList'], index, _setIndex, _unsetIndex),
-                ),
+          child: Hero(
+            tag: widget.ikey,
+            child: Carousel(item['imageList'], index, _setIndex, _unsetIndex),
+          ),
         ),
         Positioned(
           bottom: 0,
@@ -84,23 +77,19 @@ class _StalkItemState extends ConsumerState<StalkItem> {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                !isLoading
-                    ? Text(
-                        item['full_name'],
-                        style: Theme.of(context).textTheme.titleLarge,
-                      )
-                    : const Text(''),
+                Text(
+                  item['full_name'],
+                  style: Theme.of(context).textTheme.titleLarge,
+                ),
                 const SizedBox(width: 5),
-                !isLoading
-                    ? Text(
-                        item['age'].toString(),
-                        style: Theme.of(context).textTheme.bodyLarge,
-                      )
-                    : const Text(''),
+                Text(
+                  item['age'].toString(),
+                  style: Theme.of(context).textTheme.bodyLarge,
+                ),
                 const Spacer(),
                 IconButton(
-                    onPressed: _getDetails,
-                    icon: const Icon(Icons.info_outline),
+                  onPressed: _getDetails,
+                  icon: const Icon(Icons.info_outline),
                 )
               ],
             ),

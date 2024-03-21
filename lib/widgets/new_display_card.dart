@@ -3,10 +3,9 @@ import 'package:eterna_native/widgets/stalk_item.dart';
 import 'package:flutter/material.dart';
 
 class NewDisplayCard extends StatefulWidget {
-  const NewDisplayCard(this.api, this.snapshot, this.ikey, this.onClick, {super.key});
+  const NewDisplayCard(this.api, this.ikey, this.onClick, {super.key});
 
   final String api;
-  final AsyncSnapshot snapshot;
   final int ikey;
   final void Function() onClick;
 
@@ -44,7 +43,7 @@ class _DisplayCardState extends State<NewDisplayCard> {
             child: SizedBox(
               height: double.infinity,
               width: double.infinity,
-              child: StalkItem(widget.snapshot, widget.ikey),
+              child: StalkItem(widget.ikey),
             ),
           ),
           Flexible(
@@ -52,7 +51,7 @@ class _DisplayCardState extends State<NewDisplayCard> {
             child: SizedBox(
               height: double.infinity,
               width: double.infinity,
-              child: DecisionButtons(_decide, widget.snapshot),
+              child: DecisionButtons(_decide),
             ),
           ),
         ],
