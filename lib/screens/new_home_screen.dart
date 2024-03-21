@@ -22,14 +22,10 @@ class _NewHomeScreenState extends ConsumerState<NewHomeScreen> {
   void initState() {
     super.initState();
     final data = ref.read(dataProvider);
-    if (data.isEmpty) {
-      _stalkProfileFuture = _stalk();
-    } else {
-      _stalkProfileFuture = Future.value(data);
-    }
+    _stalkProfileFuture = data.isNotEmpty ? _stalk() : Future.value(data);
   }
 
-  _stalk() async {
+  Future<void> _stalk() async {
     final api = ref.read(apiProvider);
     final url = Uri.parse('$api/stalk');
     final response = await http.get(url);
